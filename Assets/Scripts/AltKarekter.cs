@@ -29,5 +29,13 @@ public class AltKarekter : MonoBehaviour
             gameObject.SetActive(false);
             
         }
+        if (other.CompareTag("Enemy"))
+        {
+            Vector3 yeniPos = new Vector3(transform.position.x, 0.23f, transform.position.z);
+            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().YokolmaEfektiOlustur(yeniPos,false);
+
+            gameObject.SetActive(false);
+
+        }
     }
 }

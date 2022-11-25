@@ -6,6 +6,8 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform target;
     public Vector3 targetOffset;
+    public bool sonaGeldikMi;
+    public GameObject gidecegiYer;
 
 
     // Start is called before the first frame update
@@ -14,9 +16,14 @@ public class CameraFollow : MonoBehaviour
         targetOffset = transform.position - target.position;
     }
 
-    // Update is called once per frame
+   
     void LateUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position,target.position+targetOffset,0.125f);
+        if (!sonaGeldikMi)
+            transform.position = Vector3.Lerp(transform.position, target.position + targetOffset, 0.125f);
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, gidecegiYer.transform.position, 0.0125f);
+        }
     }
 }

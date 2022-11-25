@@ -11,6 +11,10 @@ TagManager:
   - Cikartma
   - Bolme
   - AltKarekterler
+  - Enemy
+  - SonTetikleyici
+  - Direk
+  - BosKarekter
   layers:
   - Default
   - TransparentFX
