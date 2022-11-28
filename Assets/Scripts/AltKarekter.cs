@@ -7,8 +7,10 @@ public class AltKarekter : MonoBehaviour
 {
     GameObject target;
     NavMeshAgent navMesh;
+  
     void Start()
     {
+       
         navMesh = GetComponent<NavMeshAgent>();
         target = GameObject.FindWithTag("GameManager").GetComponent<GameManager>().varisNoktasi;
     }
@@ -36,6 +38,12 @@ public class AltKarekter : MonoBehaviour
 
             gameObject.SetActive(false);
 
+        }
+        else if (other.CompareTag("BosKarekter"))
+        {
+            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().Karekterler.Add(other.gameObject);
+            //GameManager.AnlikKarekterSayisi++;
+            //other.gameObject.tag = "AltKarekterler";
         }
     }
 }

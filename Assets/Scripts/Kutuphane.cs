@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace mikail
 {
-    public class Kutuphane : MonoBehaviour
+    public class Kutuphane
     {
 
-        public static void Carpma(int gelenSayi, List<GameObject> Karekterler, Transform pozisyon,List<GameObject> OlusturmaEfektleri)
+        public void Carpma(int gelenSayi, List<GameObject> Karekterler, Transform pozisyon, List<GameObject> OlusturmaEfektleri)
         {
 
             int DonguSayisi = (GameManager.AnlikKarekterSayisi * gelenSayi) - GameManager.AnlikKarekterSayisi;
@@ -23,10 +23,11 @@ namespace mikail
                         {
                             if (!item2.activeInHierarchy)
                             {
-                               
+
                                 item2.SetActive(true);
                                 item2.transform.position = pozisyon.position;
                                 item2.GetComponent<ParticleSystem>().Play();
+                                item2.GetComponent<AudioSource>().Play();
                                 break;
                             }
                         }
@@ -52,7 +53,7 @@ namespace mikail
 
         }
 
-        public static void Toplama(int gelenSayi, List<GameObject> Karekterler, Transform pozisyon, List<GameObject> OlusturmaEfektleri)
+        public void Toplama(int gelenSayi, List<GameObject> Karekterler, Transform pozisyon, List<GameObject> OlusturmaEfektleri)
         {
 
             int sayi2 = 0;
@@ -70,6 +71,8 @@ namespace mikail
                                 item2.SetActive(true);
                                 item2.transform.position = pozisyon.position;
                                 item2.GetComponent<ParticleSystem>().Play();
+                                item2.GetComponent<AudioSource>().Play();
+
                                 break;
                             }
                         }
@@ -96,7 +99,7 @@ namespace mikail
 
         }
 
-        public static void Cikartma(int gelenSayi, List<GameObject> Karekterler,List<GameObject> YokOlmaEfekleri)
+        public void Cikartma(int gelenSayi, List<GameObject> Karekterler, List<GameObject> YokOlmaEfekleri)
         {
 
             if (GameManager.AnlikKarekterSayisi < gelenSayi)
@@ -111,6 +114,7 @@ namespace mikail
                             item2.SetActive(true);
                             item2.transform.position = yeniPos;
                             item2.GetComponent<ParticleSystem>().Play();
+                            item2.GetComponent<AudioSource>().Play();
                             break;
                         }
                     }
@@ -139,6 +143,7 @@ namespace mikail
                                     item2.SetActive(true);
                                     item2.transform.position = yeniPos;
                                     item2.GetComponent<ParticleSystem>().Play();
+                                    item2.GetComponent<AudioSource>().Play();
                                     break;
                                 }
                             }
@@ -170,7 +175,7 @@ namespace mikail
 
         }
 
-        public static void Bolme(int gelenSayi, List<GameObject> Karekterler, List<GameObject> YokOlmaEfekleri)
+        public void Bolme(int gelenSayi, List<GameObject> Karekterler, List<GameObject> YokOlmaEfekleri)
         {
 
             if (GameManager.AnlikKarekterSayisi <= gelenSayi)
@@ -185,6 +190,7 @@ namespace mikail
                             item2.SetActive(true);
                             item2.transform.position = yeniPos;
                             item2.GetComponent<ParticleSystem>().Play();
+                            item2.GetComponent<AudioSource>().Play();
                             break;
                         }
                     }
@@ -213,6 +219,7 @@ namespace mikail
                                     item2.SetActive(true);
                                     item2.transform.position = yeniPos;
                                     item2.GetComponent<ParticleSystem>().Play();
+                                    item2.GetComponent<AudioSource>().Play();
                                     break;
                                 }
                             }
@@ -255,6 +262,51 @@ namespace mikail
 
 
     }
+
+
+    public class BellekYonetim
+    {
+        public void VeriKaydet_string(string key,string value)
+        {
+            PlayerPrefs.SetString(key, value);
+            PlayerPrefs.Save();
+        }
+
+        public void VeriKaydet_int(string key,int value)
+        {
+            PlayerPrefs.SetInt(key, value);
+            PlayerPrefs.Save();
+        }
+
+        public void VeriKaydet_float(string key,float value)
+        {
+            PlayerPrefs.SetFloat(key, value);
+            PlayerPrefs.Save();
+        }
+
+
+        public string VeriOku_S(string key)
+        {
+           
+            return PlayerPrefs.GetString(key);
+        }
+
+        public int VeriOku_I(string key)
+        {
+
+            return PlayerPrefs.GetInt(key);
+        }
+        public float VeriOku_F(string key)
+        {
+
+            return PlayerPrefs.GetFloat(key);
+        }
+
+
+
+    }
+
+
 
 
 

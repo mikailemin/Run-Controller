@@ -17,9 +17,32 @@ public class BosKarekter : MonoBehaviour
     {
         if (other.CompareTag("AltKarekterler") || other.CompareTag("Player"))
         {
-            MaterialDegistirveAnimasyonTetikle();
 
-            temasvar = true;
+            if (gameObject.CompareTag("BosKarekter"))
+            {
+                MaterialDegistirveAnimasyonTetikle();
+
+                temasvar = true;
+                GetComponent<AudioSource>().Play();
+            }
+          
+        }
+        else if (other.CompareTag("igneliKutu"))
+        {
+            Vector3 yeniPos = new Vector3(transform.position.x, 0.23f, transform.position.z);
+            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().YokolmaEfektiOlustur(yeniPos);
+
+            gameObject.SetActive(false);
+
+        }
+
+        if (other.CompareTag("Enemy"))
+        {
+            Vector3 yeniPos = new Vector3(transform.position.x, 0.23f, transform.position.z);
+            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().YokolmaEfektiOlustur(yeniPos, false);
+
+            gameObject.SetActive(false);
+
         }
 
 
@@ -33,9 +56,14 @@ public class BosKarekter : MonoBehaviour
     {
         Material[] mats = Renderer.materials;
         mats[0] = AtanacakOlanMateryal;
-        Renderer.materials=mats;
+        Renderer.materials = mats;
 
         animator.SetBool("Saldir", true);
+
+
+        gameObject.tag = "AltKarekterler";
+        GameManager.AnlikKarekterSayisi++;
+
     }
 
 

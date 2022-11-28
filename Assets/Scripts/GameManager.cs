@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
     public bool oyunBittMi;
     public bool sonaGeldikMi;
 
+
+    Kutuphane kutuphane=new Kutuphane();
+    BellekYonetim bellekYonetim =new BellekYonetim();
+
     void Start()
     {
         DusmanlariOlustur();
@@ -106,7 +110,7 @@ public class GameManager : MonoBehaviour
 
                 if (AnlikKarekterSayisi < KacDusmanOlsun || AnlikKarekterSayisi == KacDusmanOlsun)
                 {
-                    Debug.Log("Kaybetttin");
+                    Debug.Log("Kaybettin");
                 }
                 else
                 {
@@ -122,20 +126,20 @@ public class GameManager : MonoBehaviour
         switch (islemTuru)
         {
             case "Carpma":
-                Kutuphane.Carpma(gelenSayi, Karekterler, pozisyon, OlusmaEfektleri);
+                kutuphane.Carpma(gelenSayi, Karekterler, pozisyon, OlusmaEfektleri);
                 break;
 
             case "Toplama":
-                Kutuphane.Toplama(gelenSayi, Karekterler, pozisyon, OlusmaEfektleri);
+                kutuphane.Toplama(gelenSayi, Karekterler, pozisyon, OlusmaEfektleri);
                 break;
             case "Cikartma":
 
-                Kutuphane.Cikartma(gelenSayi, Karekterler, YokOlmaEfektleri);
+                kutuphane.Cikartma(gelenSayi, Karekterler, YokOlmaEfektleri);
 
                 break;
             case "Bolme":
 
-                Kutuphane.Bolme(gelenSayi, Karekterler, YokOlmaEfektleri);
+                kutuphane.Bolme(gelenSayi, Karekterler, YokOlmaEfektleri);
 
                 break;
         }
@@ -151,6 +155,7 @@ public class GameManager : MonoBehaviour
                 item.SetActive(true);
                 item.transform.position = pozisyon;
                 item.GetComponent<ParticleSystem>().Play();
+                item.GetComponent<AudioSource>().Play();
                 if (!durum)
                 {
                     GameManager.AnlikKarekterSayisi--;

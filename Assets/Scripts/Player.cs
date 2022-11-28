@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -14,7 +15,16 @@ public class Player : MonoBehaviour
     public GameObject Kamera;
     public bool sonaGeldikMi;
     public GameObject gidecegiYer;
+    public Slider slider;
+    public GameObject gecisNoktasi;
 
+
+
+    private void Start()
+    {
+        float fark = Vector3.Distance(transform.position, gecisNoktasi.transform.position);
+        slider.maxValue=fark;
+    }
     private void FixedUpdate()
     {
         if (!sonaGeldikMi)
@@ -24,12 +34,25 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(GameManager.AnlikKarekterSayisi);
+        
+
         if (sonaGeldikMi)
         {
             transform.position = Vector3.Lerp(transform.position, gidecegiYer.transform.position, 0.0125f);
+            if (slider.value!=0)
+            {
+                slider.value -= 0.01f;
+            }
         }
         else
         {
+            float distance = Vector3.Distance(transform.position, gecisNoktasi.transform.position);
+            
+            slider.value = distance;
+
+
+
             if (Input.GetKey(KeyCode.Mouse0))
             {
                 if (Input.GetAxis("Mouse X") < 0)
@@ -59,6 +82,14 @@ public class Player : MonoBehaviour
             gameManager.DusmanlariTetikle();
             sonaGeldikMi = true;
         }
+        else if (other.CompareTag("BosKarekter"))
+        {
+            gameManager.Karekterler.Add(other.gameObject);
+            //GameManager.AnlikKarekterSayisi++;
+           // other.gameObject.tag = "AltKarekterler";
+        }
+
+
     }
     private void OnCollisionEnter(Collision collision)
     {
