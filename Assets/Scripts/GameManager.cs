@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
+                    bellekYonetim.VeriKaydet_int("SonLevel",bellekYonetim.VeriOku_I("SonLevel")+1);
                     Debug.Log("Kazandın");
                 }
             }

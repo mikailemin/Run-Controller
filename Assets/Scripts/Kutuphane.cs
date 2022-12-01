@@ -303,6 +303,16 @@ namespace mikail
         }
 
 
+        public void KontrolEtveTanimla()
+        {
+            if (!PlayerPrefs.HasKey("SonLevel"))
+            {
+                PlayerPrefs.SetInt("SonLevel", 5);
+                PlayerPrefs.SetInt("Puan", 0);
+            }
+
+        }
+
 
     }
 
