@@ -301,6 +301,7 @@ MonoBehaviour:
   - {fileID: 919132149133078704}
   - {fileID: 919132148773785751}
   Materials: []
+  ItemBilgileri: []
 --- !u!4 &58227065
 Transform:
   m_ObjectHideFlags: 0

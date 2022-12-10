@@ -8,10 +8,13 @@ using System;
 public class AnaMenuManager : MonoBehaviour
 {
     BellekYonetim bellekYonetim=new BellekYonetim();
+    VeriYonetimi veriYonetimi=new VeriYonetimi();
     public GameObject cikisPaneli;
+    public List<ItemBilgileri> ItemBilgileri = new List<ItemBilgileri>();
     void Start()
     {
         bellekYonetim.KontrolEtveTanimla();
+       // veriYonetimi.IlkKurulumDosyaOlusturma(ItemBilgileri);  diğer tüm itemlar bitince aktifleştir.
     }
 
    

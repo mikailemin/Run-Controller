@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 
 namespace mikail
@@ -266,19 +269,19 @@ namespace mikail
 
     public class BellekYonetim
     {
-        public void VeriKaydet_string(string key,string value)
+        public void VeriKaydet_string(string key, string value)
         {
             PlayerPrefs.SetString(key, value);
             PlayerPrefs.Save();
         }
 
-        public void VeriKaydet_int(string key,int value)
+        public void VeriKaydet_int(string key, int value)
         {
             PlayerPrefs.SetInt(key, value);
             PlayerPrefs.Save();
         }
 
-        public void VeriKaydet_float(string key,float value)
+        public void VeriKaydet_float(string key, float value)
         {
             PlayerPrefs.SetFloat(key, value);
             PlayerPrefs.Save();
@@ -287,7 +290,7 @@ namespace mikail
 
         public string VeriOku_S(string key)
         {
-           
+
             return PlayerPrefs.GetString(key);
         }
 
@@ -314,10 +317,72 @@ namespace mikail
         }
 
 
+
+
     }
 
 
+    public class Verilerimiz
+    {
+        public static List<ItemBilgileri> ItemBilgileri = new List<ItemBilgileri>();
+    }
 
+    [Serializable]
+    public class ItemBilgileri
+    {
+        public int GrupIndex;
+        public int ItemIndex;
+        public string ItemAd;
+        public int Puan;
+        public bool SatinAlmaDurumu;
+    }
+    public class VeriYonetimi
+    {
+        public void Save(List<ItemBilgileri> ItemBilgileri)
+        {
+
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.OpenWrite(Application.persistentDataPath + "/ItemVerileri.gd");
+            bf.Serialize(file, ItemBilgileri);
+            file.Close();
+
+
+        }
+
+        List<ItemBilgileri> ItemIcListe;
+        public void Load()
+        {
+            if (File.Exists(Application.persistentDataPath + "/ItemVerileri.gd"))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream file = File.Open(Application.persistentDataPath + "/ItemVerileri.gd", FileMode.Open);
+                ItemIcListe = (List<ItemBilgileri>)bf.Deserialize(file);
+                file.Close();
+
+            }
+        }
+
+        public List<ItemBilgileri> ListeyiAktar()
+        {
+            return ItemIcListe;
+
+        }
+
+        public void IlkKurulumDosyaOlusturma(List<ItemBilgileri> ItemBilgileri)
+        {
+
+            if (!File.Exists(Application.persistentDataPath + "/ItemVerileri.gd"))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream file = File.Create(Application.persistentDataPath + "/ItemVerileri.gd");
+                bf.Serialize(file, ItemBilgileri);
+                file.Close();
+            }
+
+        }
+
+
+    }
 
 
 }

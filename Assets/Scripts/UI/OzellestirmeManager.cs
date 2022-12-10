@@ -5,6 +5,7 @@ using mikail;
 using TMPro;
 using UnityEngine.UI;
 
+
 public class OzellestirmeManager : MonoBehaviour
 {
 
@@ -21,7 +22,9 @@ public class OzellestirmeManager : MonoBehaviour
     int SapkaIndex = -1;
 
     BellekYonetim bellekYonetim = new BellekYonetim();
+    VeriYonetimi veriYonetimi = new VeriYonetimi();
 
+    public List<ItemBilgileri> ItemBilgileri = new List<ItemBilgileri>();
 
     void Start()
     {
@@ -42,8 +45,18 @@ public class OzellestirmeManager : MonoBehaviour
             Sapkalar[SapkaIndex].SetActive(true);
         }
 
+       // veriYonetimi.Save(ItemBilgileri);
+
+        veriYonetimi.Load();
+         ItemBilgileri = veriYonetimi.ListeyiAktar();
         
     }
+
+
+
+  
+
+
 
     public void SapkaYonButonlari(string islem)
     {
@@ -53,6 +66,7 @@ public class OzellestirmeManager : MonoBehaviour
             {
                 SapkaIndex= 0;
                 Sapkalar[SapkaIndex].SetActive(true);
+                SapkaText.text= ItemBilgileri[SapkaIndex].ItemAd;
 
             }
             else
@@ -60,6 +74,8 @@ public class OzellestirmeManager : MonoBehaviour
                 Sapkalar[SapkaIndex].SetActive(false);
                 SapkaIndex++;
                 Sapkalar[SapkaIndex].SetActive(true);
+                SapkaText.text = ItemBilgileri[SapkaIndex].ItemAd;
+
 
             }
 
@@ -92,15 +108,18 @@ public class OzellestirmeManager : MonoBehaviour
                 {
                     Sapkalar[SapkaIndex].SetActive(true);
                     Sapkabutonlari[0].interactable = true;
+                    SapkaText.text = ItemBilgileri[SapkaIndex].ItemAd;
                 }
                 else
                 {
                     Sapkabutonlari[0].interactable = false;
+                    SapkaText.text = "Şapka Yok";
                 }
             }
             else
             {
                 Sapkabutonlari[0].interactable = false;
+                SapkaText.text = "Şapka Yok";
             }
             //---------------------------------------------
             if (SapkaIndex!=Sapkalar.Length-1)
@@ -111,6 +130,10 @@ public class OzellestirmeManager : MonoBehaviour
         }
 
     }
+
+
+
+
 
    
 }
